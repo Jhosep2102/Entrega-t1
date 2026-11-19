@@ -1,0 +1,43 @@
+@model List<Pedido>
+@{
+    ViewData["Title"] = "Pedidos";
+    var clientes = ViewBag.Clientes as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Pedidos</h2>
+    <a class="btn btn-primary" asp-action="Create">Nuevo pedido</a>
+</div>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model)
+        {
+            <tr>
+                <td>@pedido.PedidoId</td>
+                <td>@pedido.FechaPedido.ToString("dd/MM/yyyy")</td>
+                <td>$ @pedido.Monto.ToString("0.00")</td>
+                <td>@pedido.Estado</td>
+                <td>@(clientes.ContainsKey(pedido.ClienteId) ? clientes[pedido.ClienteId] : pedido.ClienteId.ToString())</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@pedido.PedidoId">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

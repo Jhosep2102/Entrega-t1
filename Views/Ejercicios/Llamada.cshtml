@@ -1,0 +1,51 @@
+@model LlamadaViewModel
+@{
+    ViewData["Title"] = "Llamada";
+}
+
+<h2 class="mb-4">Llamada telefonica</h2>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Llamada" method="post">
+            <div class="mb-3">
+                <label asp-for="Minutos" class="form-label"></label>
+                <input asp-for="Minutos" class="form-control" />
+                <span asp-validation-for="Minutos" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+    </div>
+
+    @if (Model.Calculado)
+    {
+        <div class="col-md-7">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Minutos</th>
+                    <td>@Model.Minutos</td>
+                </tr>
+                <tr>
+                    <th>Costo base (5 minutos)</th>
+                    <td>$ @Model.CostoBase.ToString("0.00")</td>
+                </tr>
+                <tr>
+                    <th>Minutos adicionales</th>
+                    <td>@Model.MinutosAdicionales</td>
+                </tr>
+                <tr>
+                    <th>Costo adicional</th>
+                    <td>$ @Model.CostoAdicional.ToString("0.00")</td>
+                </tr>
+                <tr class="table-success">
+                    <th>Total a pagar</th>
+                    <td><strong>$ @Model.Total.ToString("0.00")</strong></td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

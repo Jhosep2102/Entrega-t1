@@ -1,0 +1,56 @@
+@model GimnasioViewModel
+@{
+    ViewData["Title"] = "Gimnasio";
+}
+
+<h2 class="mb-4">Membresia del gimnasio</h2>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Gimnasio" method="post">
+            <div class="mb-3">
+                <label asp-for="Edad" class="form-label"></label>
+                <input asp-for="Edad" class="form-control" />
+                <span asp-validation-for="Edad" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Meses" class="form-label"></label>
+                <input asp-for="Meses" class="form-control" />
+                <span asp-validation-for="Meses" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+    </div>
+
+    @if (Model.Calculado)
+    {
+        <div class="col-md-7">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Tarifa base mensual</th>
+                    <td>$ @Model.TarifaBase.ToString("0.00")</td>
+                </tr>
+                <tr>
+                    <th>Meses contratados</th>
+                    <td>@Model.Meses</td>
+                </tr>
+                <tr>
+                    <th>Subtotal</th>
+                    <td>$ @Model.Subtotal.ToString("0.00")</td>
+                </tr>
+                <tr>
+                    <th>Descuento aplicado (@Model.PorcentajeDescuento %)</th>
+                    <td>$ @Model.Descuento.ToString("0.00")</td>
+                </tr>
+                <tr class="table-success">
+                    <th>Total a pagar</th>
+                    <td><strong>$ @Model.Total.ToString("0.00")</strong></td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
