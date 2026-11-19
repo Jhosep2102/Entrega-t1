@@ -1,0 +1,29 @@
+@model Cliente
+@{
+    ViewData["Title"] = "Nuevo cliente";
+}
+
+<h2 class="mb-4">Nuevo cliente</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" maxlength="100" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CorreoElectronico" class="form-label">Correo electronico</label>
+                <input asp-for="CorreoElectronico" type="email" class="form-control" maxlength="100" />
+                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary" asp-action="Index">Volver</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
